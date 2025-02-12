@@ -2,6 +2,8 @@ import prisma from "@/lib/db";
 import { redirect } from "next/navigation";
 import React from "react";
 
+export const dynamic = 'force-dynamic';
+
 interface RedirectPageProps {
     params: { shortcode: string }
 }
@@ -26,4 +28,3 @@ export default async function RedirectPage({ params }: RedirectPageProps) {
     redirect(url.originalUrl);
 }
 
-export const dynamic = 'force-dynamic';
