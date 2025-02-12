@@ -21,7 +21,7 @@ export default async function RedirectPage({ params }: RedirectPageProps) {
             notFound();
         }
 
-        // Update visit count before redirect
+        
         await prisma.url.update({
             where: {
                 id: url.id
@@ -34,8 +34,8 @@ export default async function RedirectPage({ params }: RedirectPageProps) {
             ? url.originalUrl 
             : `https://${url.originalUrl}`;
 
-        // Permanent redirect to indicate this is a permanent reference
-        //@ts-ignore
+        
+        //@ts-expect-error to ignore push mentioned down
         redirect(redirectUrl, 'push');
         
     } catch (error) {
@@ -51,5 +51,5 @@ export default async function RedirectPage({ params }: RedirectPageProps) {
     }
 }
 
-// Add this to ensure the page is dynamically rendered
+
 export const dynamic = 'force-dynamic';
