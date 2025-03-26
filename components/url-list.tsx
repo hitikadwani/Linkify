@@ -18,9 +18,15 @@ export default function UrlList() {
   const [copyUrl, setCopyUrl] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  // Ensure NEXT_PUBLIC_BASE_URL is correctly set in your .env file
-  const shortenerUrl = (code: string) =>
-    `${process.env.NEXT_PUBLIC_BASE_URL}/${code}`;
+  // Dynamically get base URL from the current domain
+  const getBaseUrl = () => {
+    if (typeof window !== "undefined") {
+      return window.location.origin;
+    }
+    return "https://linkify-six-teal.vercel.app"; // Fallback for SSR
+  };
+
+  const shortenerUrl = (code: string) => `${getBaseUrl()}/${code}`;
 
   const fetchUrls = async () => {
     setIsLoading(true);
