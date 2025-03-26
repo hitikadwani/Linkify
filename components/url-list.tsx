@@ -18,6 +18,7 @@ export default function UrlList() {
   const [copyUrl, setCopyUrl] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  // Ensure NEXT_PUBLIC_BASE_URL is correctly set in your .env file
   const shortenerUrl = (code: string) =>
     `${process.env.NEXT_PUBLIC_BASE_URL}/${code}`;
 
@@ -29,10 +30,9 @@ export default function UrlList() {
       setUrls(data);
     } catch (error) {
       console.error("Error fetching URLs", error);
-    } finally{
+    } finally {
       setIsLoading(false);
     }
-   
   };
 
   const handleCopyUrl = (code: string) => {
@@ -51,7 +51,7 @@ export default function UrlList() {
     fetchUrls();
   }, []);
 
-  if(isLoading) {
+  if (isLoading) {
     return (
       <div className="animate-pulse">
         <div className="h-8 bg-gray-200 rounded w-1/4 mb-4"></div>
@@ -59,21 +59,21 @@ export default function UrlList() {
           {[1, 2, 3].map((num) => (
             <li
               key={num}
-              className="flex items-center gap-2 rounded-md border bg-card p-4 text-card-foreground justify-between">
-                <div className="h-4 bg-gray-200 rounded w-1/2"></div>
-                <div className="flex items-center gap-3">
-                  <div className="h-5 w-5 bg-gray-200 rounded"></div>
-                  <span className="flex items-center gap-2">
-                    <div className="h-4 w-4 bg-gray-200 rouneded"></div>
-                    <div className="h-4 bg-gray-200 w-10 rounded"></div>
-                  </span>
-                </div>
-              </li>
+              className="flex items-center gap-2 rounded-md border bg-card p-4 text-card-foreground justify-between"
+            >
+              <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+              <div className="flex items-center gap-3">
+                <div className="h-5 w-5 bg-gray-200 rounded"></div>
+                <span className="flex items-center gap-2">
+                  <div className="h-4 w-4 bg-gray-200 rounded"></div>
+                  <div className="h-4 bg-gray-200 w-10 rounded"></div>
+                </span>
+              </div>
+            </li>
           ))}
         </ul>
       </div>
-      
-    )
+    );
   }
 
   return (
@@ -86,7 +86,7 @@ export default function UrlList() {
             className="flex items-center gap-2 justify-between bg-card rounded-md text-card-foreground border p-3"
           >
             <Link
-              href={`/${url.shortCode}`}
+              href={shortenerUrl(url.shortCode)}
               target="_blank"
               className="text-blue-500"
             >
